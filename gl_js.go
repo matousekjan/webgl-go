@@ -31,11 +31,13 @@ type TransformFeedbackTarget int
 type SyncCondition int
 type SyncFlushCommandBit int
 type WaitSyncResult int
+type FrameBufferType int
 
 type Shader js.Value
 type Program js.Value
 type Location js.Value
 type Buffer js.Value
+type FrameBuffer js.Value
 type Texture *js.Value
 type TransformFeedback js.Value
 type WebGLSync js.Value
@@ -49,6 +51,7 @@ type WebGL struct {
 	NO_ERROR, INVALID_ENUM, INVALID_VALUE, INVALID_OPERATION,
 	INVALID_FRAMEBUFFER_OPERATION, OUT_OF_MEMORY, CONTEXT_LOST_WEBGL ErrorNumber
 
+	FRAMEBUFFER, DRAW_FRAMEBUFFER, READ_FRAMEBUFFER                               FrameBufferType
 	VERTEX_SHADER, FRAGMENT_SHADER                                                ShaderType
 	ARRAY_BUFFER, ELEMENT_ARRAY_BUFFER, TRANSFORM_FEEDBACK_BUFFER, UNIFORM_BUFFER BufferType
 	STATIC_DRAW, DYNAMIC_COPY, STREAM_READ                                        BufferUsage
@@ -97,6 +100,10 @@ func New(canvas js.Value) (*WebGL, error) {
 
 		VERTEX_SHADER:   ShaderType(gl.Get("VERTEX_SHADER").Int()),
 		FRAGMENT_SHADER: ShaderType(gl.Get("FRAGMENT_SHADER").Int()),
+
+		FRAMEBUFFER:      FrameBufferType(gl.Get("FRAMEBUFFER").Int()),
+		DRAW_FRAMEBUFFER: FrameBufferType(gl.Get("DRAW_FRAMEBUFFER").Int()),
+		READ_FRAMEBUFFER: FrameBufferType(gl.Get("READ_FRAMEBUFFER").Int()),
 
 		ARRAY_BUFFER:              BufferType(gl.Get("ARRAY_BUFFER").Int()),
 		ELEMENT_ARRAY_BUFFER:      BufferType(gl.Get("ELEMENT_ARRAY_BUFFER").Int()),
@@ -258,6 +265,10 @@ func (gl *WebGL) CreateVertexArray() VertexArray {
 
 func (gl *WebGL) BindVertexArray(vertArr VertexArray) {
 	gl.gl.Call("bindVertexArray", js.Value(vertArr))
+}
+
+func (gl *WebGL) BindFrameBuffer(ft FrameBufferType, fBuf FrameBuffer) {
+	gl.gl.Call("bindFrameBuffer", int(ft), js.Value(fBuf))
 }
 
 func (gl *WebGL) CreateBuffer() Buffer {
