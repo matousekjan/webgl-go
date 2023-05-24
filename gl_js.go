@@ -330,6 +330,10 @@ func (gl *WebGL) VertexAttribIPointer(i, size int, typ Type, stride, offset int)
 	gl.gl.Call("vertexAttribIPointer", i, size, int(typ), stride, offset)
 }
 
+func (gl *WebGL) VertexAttribDivisor(index int, divisor int) {
+	gl.gl.Call("vertexAttribDivisor", index, divisor)
+}
+
 func (gl *WebGL) EnableVertexAttribArray(i int) {
 	gl.gl.Call("enableVertexAttribArray", i)
 }
