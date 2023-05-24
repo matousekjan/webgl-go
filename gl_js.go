@@ -268,7 +268,7 @@ func (gl *WebGL) BindVertexArray(vertArr VertexArray) {
 }
 
 func (gl *WebGL) BindFrameBuffer(ft FrameBufferType, fBuf FrameBuffer) {
-	gl.gl.Call("bindFrameBuffer", int(ft), js.Value(fBuf))
+	gl.gl.Call("bindFramebuffer", int(ft), js.Value(fBuf))
 }
 
 func (gl *WebGL) CreateBuffer() Buffer {
