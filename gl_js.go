@@ -383,6 +383,10 @@ func (gl *WebGL) DrawElements(mode DrawMode, count int, typ Type, offset int) {
 	gl.gl.Call("drawElements", int(mode), count, int(typ), offset)
 }
 
+func (gl *WebGL) DrawElementsInstanced(mode DrawMode, count int, typ Type, offset int, instanceCount int) {
+	gl.gl.Call("drawElementsInstanced", int(mode), count, int(typ), offset, instanceCount)
+}
+
 func (gl *WebGL) Viewport(x1, y1, x2, y2 int) {
 	gl.gl.Call("viewport", x1, y1, x2, y2)
 }
