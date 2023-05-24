@@ -256,7 +256,7 @@ func (gl *WebGL) CreateBuffer() Buffer {
 }
 
 
-func (gl *WebGL) BindBuffer(buf Buffer) {
+func (gl *WebGL) BindBuffer(t BufferType, buf Buffer) {
 	gl.gl.Call("bindBuffer", int(t), js.Value(buf))
 }
 
