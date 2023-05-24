@@ -39,6 +39,7 @@ type Buffer js.Value
 type Texture *js.Value
 type TransformFeedback js.Value
 type WebGLSync js.Value
+type VertexArray js.Value
 
 type WebGL struct {
 	gl js.Value
@@ -251,10 +252,17 @@ func (gl *WebGL) GetUniformLocation(p Program, name string) Location {
 	return Location(gl.gl.Call("getUniformLocation", js.Value(p), name))
 }
 
+func (gl *WebGL) CreateVertexArray() VertexArray {
+	return VertexArray(gl.gl.Call("createVertexArray"))
+}
+
+func (gl *WebGL) BindVertexArray(vertArr VertexArray) {
+	gl.gl.Call("bindVertexArray", js.Value(vertArr))
+}
+
 func (gl *WebGL) CreateBuffer() Buffer {
 	return Buffer(gl.gl.Call("createBuffer"))
 }
-
 
 func (gl *WebGL) BindBuffer(t BufferType, buf Buffer) {
 	gl.gl.Call("bindBuffer", int(t), js.Value(buf))
