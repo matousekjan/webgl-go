@@ -1,3 +1,3 @@
-module github.com/seqsense/webgl-go
+module github.com/matousekjan/webgl-go
 
 go 1.16
